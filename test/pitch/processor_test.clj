@@ -1,6 +1,6 @@
 (ns pitch.processor-test
   (:require [clojure.test :refer :all]
-            [pitch.processor :refer :all]))
+            [pitch.core :refer :all]))
 
 (deftest seven-segment->digit-test
   (testing "translates a 0 seven-segment digit to a digit"
@@ -17,3 +17,12 @@
   |"
           result (seven-segment->digit seven-segment-one)]
       (is (= 1 result)))))
+
+(deftest seven-segment-line->digits-test
+  (testing ""
+    (let [seven-segment-line 
+" _     _  _     _  _  _  _  _ 
+| |  | _| _||_||_ |_   ||_||_|
+|_|  ||_  _|  | _||_|  ||_| _|" 
+          result (seven-segment-line->digits seven-segment-line)]
+      (is (= result [0 1 2 3 4 5 6 7 8 9])))))

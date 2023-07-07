@@ -16,7 +16,6 @@
                      (s/join (System/getProperty "line.separator")))))))
 
 (defn seven-segment->digit
-  "Callable entry point to the application."
   [seven-segment-digit]
   (get digits/seven-segment-digits seven-segment-digit))
 
