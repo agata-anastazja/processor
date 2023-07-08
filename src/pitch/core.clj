@@ -1,8 +1,13 @@
 (ns pitch.core
-  (:gen-class))
+  (:gen-class)
+  (:require [pitch.processor :as processor]))
+
+
 
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  
   [input-file output-file]
-  )
+  (let [in-text (slurp input-file)
+        out-text (processor/parse in-text)]
+    (spit output-file out-text)))
