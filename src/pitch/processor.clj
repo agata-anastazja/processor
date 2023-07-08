@@ -23,7 +23,7 @@
   (->>
    line
    get-seven-segment-digits 
-   (map seven-segment->digit)))
+   (mapv seven-segment->digit)))
 
 (defn parse-validation [digits-line]
   (if (validation/valid?  digits-line)
@@ -36,7 +36,8 @@
    (s/split-lines)
    (partition 3 4)
    (map seven-segment-line->digits) 
-   doall
-   (map parse-validation)))
+   (map parse-validation)
+   (map s/join)
+   (s/join  (System/getProperty "line.separator"))))
 
 

@@ -5,5 +5,5 @@
   (let [input-len (count input)
         sum (reduce-kv (fn [acc idx digit]
                          (+ acc (* (- input-len idx) digit)))
-                       0  (vec input))]
+                       0  input)]
     (= 0 (mod sum 11))))
