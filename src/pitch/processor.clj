@@ -16,7 +16,7 @@
 
 (defn seven-segment->digit
   [seven-segment-digit]
-  (get digits/seven-segment-digits seven-segment-digit))
+  (get digits/seven-segment-digits seven-segment-digit "?"))
 
 (defn seven-segment-line->digits
   [line]
@@ -26,9 +26,10 @@
    (mapv seven-segment->digit)))
 
 (defn parse-validation [digits-line]
-  (if (validation/valid?  digits-line)
-    digits-line
-    (conj digits-line " ERR")))
+  (cond
+    (validation/not-only-digits? digits-line) (conj digits-line " ILL")
+    (validation/invalid-checksum?  digits-line) (conj digits-line " ERR") 
+    :else digits-line))
 
 (defn parse [text]
   (->>

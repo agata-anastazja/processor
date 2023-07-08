@@ -2,11 +2,7 @@
   (:gen-class)
   (:require [pitch.processor :as processor]))
 
-
-
-
 (defn -main
-  
   [input-file output-file]
   (let [in-text (slurp input-file)
         out-text (processor/parse in-text)]
