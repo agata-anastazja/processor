@@ -1,6 +1,7 @@
 (ns pitch.processor
   (:require [clojure.string :as s]
-            [pitch.digits :as digits]))
+            [pitch.digits :as digits]
+            [pitch.validation :as validation]))
 
 
 
@@ -21,16 +22,21 @@
   [line]
   (->>
    line
-   get-seven-segment-digits
-   (map seven-segment->digit)
-   doall
-   (s/join)))
+   get-seven-segment-digits 
+   (map seven-segment->digit)))
+
+(defn parse-validation [digits-line]
+  (if (validation/valid?  digits-line)
+    digits-line
+    (conj digits-line " ERR")))
 
 (defn parse [text]
   (->>
    text
-   (s/split-lines) 
+   (s/split-lines)
    (partition 3 4)
-   (map seven-segment-line->digits)
-   (s/join (System/getProperty "line.separator"))))
+   (map seven-segment-line->digits) 
+   doall
+   (map parse-validation)))
+
 
