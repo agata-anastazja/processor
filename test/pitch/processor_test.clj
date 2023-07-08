@@ -5,7 +5,7 @@
 (deftest seven-segment->digit-test
   (testing "translates a 0 seven-segment digit to a digit"
     (let [seven-segment-zero
-" _  
+" _ 
 | |
 |_|"
           result (seven-segment->digit seven-segment-zero)]
@@ -21,11 +21,11 @@
 (deftest seven-segment-line->digits-test
   (testing "parses one line of input"
     (let [seven-segment-line 
-" _     _  _     _  _  _  _  _ 
-| |  | _| _||_||_ |_   ||_||_|
-|_|  ||_  _|  | _||_|  ||_| _|" 
+[" _     _  _     _  _  _  _  _"
+"| |  | _| _||_||_ |_   ||_||_|"
+"|_|  ||_  _|  | _||_|  ||_| _|"] 
           result (seven-segment-line->digits seven-segment-line)]
-      (is (= result [0 1 2 3 4 5 6 7 8 9])))))
+      (is (= [0 1 2 3 4 5 6 7 8 9] result)))))
 
 (deftest parse-test
   (testing "parse file"
