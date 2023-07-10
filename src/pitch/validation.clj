@@ -10,3 +10,9 @@
 
 (defn not-only-digits? [input]
   (some? (some (fn [x] (not (number? x))) input)))
+
+(defn parse-validation [digits-line]
+  (cond
+    (not-only-digits? digits-line) (conj digits-line " ILL")
+    (invalid-checksum?  digits-line) (conj digits-line " ERR")
+    :else digits-line))

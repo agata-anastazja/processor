@@ -18,22 +18,7 @@
           result (seven-segment-line->account seven-segment-line)]
       (is (= `(0 1 2 3 4 5 6 7 8 \?) result)))))
 
-(deftest parse-validation-test 
-  (testing "add ERR to invalid checksum line"
-    (let [line [0 0 0 0 0 0 0 0 1 ]
-          result (parse-validation line)
-          expected-result [0 0 0 0 0 0 0 0 1 " ERR" ]]
-      (is (=  expected-result result))))
-  (testing "don't change a valid checksum"
-    (let [line [0 0 0 0 0 0 0 0 0]
-          result (parse-validation line)
-          expected-result [0 0 0 0 0 0 0 0 0]]
-      (is (=  expected-result result))))
-  (testing "add ILL to a line with badly parsed numbers"
-    (let [line [0 "?" 0 0 0 0 0 0 0]
-          result (parse-validation line)
-          expected-result [0 "?" 0 0 0 0 0 0 0 " ILL"]]
-      (is (= expected-result result)))))
+
 
 (deftest parse-test
   (testing "parse a valid input file"

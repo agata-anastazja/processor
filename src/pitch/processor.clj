@@ -9,7 +9,6 @@
    (cons #(digits/chars-digits [%1 %2 %3] \?))
    (apply mapv)))
 
-
 (defn partition-by-3 [lines] 
   (map #(partition 3 %) lines))
 
@@ -20,17 +19,11 @@
    partition-by-3
    group-line-by-segments))
 
-(defn parse-validation [digits-line]
-  (cond
-    (validation/not-only-digits? digits-line) (conj digits-line " ILL")
-    (validation/invalid-checksum?  digits-line) (conj digits-line " ERR") 
-    :else digits-line))
-
 (defn parse-account [seven-segment-line]
   (->>
    seven-segment-line
    seven-segment-line->account
-   parse-validation
+   validation/parse-validation
    s/join))
 
 (defn parse [text]

@@ -1,6 +1,5 @@
 (ns pitch.digits)
 
-
 (def chars-digits {[[\space \_ \space]
               [\| \space \|]
               [\| \_ \|]] 0

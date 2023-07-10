@@ -15,3 +15,20 @@
     (is (not-only-digits? [1 2 "?"])))
   (testing "returns false if there is a vector only with digits"
     (is (= false (not-only-digits? [1 2])))))
+
+(deftest parse-validation-test
+  (testing "add ERR to invalid checksum line"
+    (let [line [0 0 0 0 0 0 0 0 1]
+          result (parse-validation line)
+          expected-result [0 0 0 0 0 0 0 0 1 " ERR"]]
+      (is (=  expected-result result))))
+  (testing "don't change a valid checksum"
+    (let [line [0 0 0 0 0 0 0 0 0]
+          result (parse-validation line)
+          expected-result [0 0 0 0 0 0 0 0 0]]
+      (is (=  expected-result result))))
+  (testing "add ILL to a line with badly parsed numbers"
+    (let [line [0 "?" 0 0 0 0 0 0 0]
+          result (parse-validation line)
+          expected-result [0 "?" 0 0 0 0 0 0 0 " ILL"]]
+      (is (= expected-result result)))))
