@@ -2,20 +2,20 @@
   (:require [clojure.test :refer :all]
             [pitch.processor :refer :all]))
 
-(deftest seven-segment-line->digits-test
+(deftest seven-segment-line->account-test
   (testing "parses one line of input"
     (let [seven-segment-line
           [" _     _  _     _  _  _  _  _ "
            "| |  | _| _||_||_ |_   ||_||_|"
            "|_|  ||_  _|  | _||_|  ||_| _|"]
-          result (seven-segment-line->digits seven-segment-line)]
+          result (seven-segment-line->account seven-segment-line)]
       (is (= `(0 1 2 3 4 5 6 7 8 9) result))))
   (testing "parses one line of input"
     (let [seven-segment-line
           [" _     _  _     _  _  _  _  _ "
            "| |  | _| _||_||_ |_   ||_||_|"
            "|_|  ||_  _|  | _||_|  ||_| _ "]
-          result (seven-segment-line->digits seven-segment-line)]
+          result (seven-segment-line->account seven-segment-line)]
       (is (= `(0 1 2 3 4 5 6 7 8 \?) result)))))
 
 (deftest parse-validation-test 

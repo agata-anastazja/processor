@@ -2,11 +2,10 @@
   (:require [clojure.string :as s]
             [pitch.digits :as digits]
             [pitch.validation :as validation]))
-
-(defn seven-segment-line->digits
-  [line]
+(defn seven-segment-line->account
+  [seven-segment-line]
   (->>
-   line
+   seven-segment-line
    (map #(->>
           %
           seq
@@ -20,17 +19,17 @@
     (validation/invalid-checksum?  digits-line) (conj digits-line " ERR") 
     :else digits-line))
 
+(defn parse-account [seven-segment-line]
+  (->>
+   seven-segment-line
+   seven-segment-line->account
+   parse-validation
+   s/join))
+
 (defn parse [text]
   (->>
    text
    (s/split-lines)
    (partition 3 4)
-   (map seven-segment-line->digits) 
-   (map parse-validation)
-   (map s/join)
-   (s/join  (System/getProperty "line.separator"))))
-
-
-
-
-
+   (map parse-account)
+   (s/join (System/getProperty "line.separator"))))
