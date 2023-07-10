@@ -2,16 +2,23 @@
   (:require [clojure.string :as s]
             [pitch.digits :as digits]
             [pitch.validation :as validation]))
-(defn seven-segment-line->account
-  [seven-segment-line]
+
+(defn group-line-by-segments [lines]
   (->>
-   seven-segment-line
-   (map #(->>
-          %
-          seq
-          ((fn [x] (partition 3 x)))))
+   lines
    (cons #(digits/chars-digits [%1 %2 %3] \?))
    (apply mapv)))
+
+
+(defn partition-by-3 [lines] 
+  (map #(partition 3 %) lines))
+
+(defn seven-segment-line->account
+  [seven-segment-digit]
+  (->>
+   seven-segment-digit
+   partition-by-3
+   group-line-by-segments))
 
 (defn parse-validation [digits-line]
   (cond
