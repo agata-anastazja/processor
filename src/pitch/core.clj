@@ -5,5 +5,5 @@
 (defn -main
   [input-file output-file]
   (let [in-text (slurp input-file)
-        out-text (processor/parse in-text)]
+        out-text (processor/parse-account-numbers in-text)]
     (spit output-file out-text)))

@@ -20,15 +20,15 @@
 
 
 
-(deftest parse-test
+(deftest parse-account-numbers-test
   (testing "parse a valid input file"
     (let [input (slurp "test/pitch/resources/valid_input.txt")
-          result (parse input)
+          result (parse-account-numbers input)
           expected-result "000000000"]
       (is (= expected-result result))))
   (testing "parse file with checksum validation failing"
     (let [input (slurp "test/pitch/resources/checksum_validation_failing_input.txt")
-          result (parse input)
+          result (parse-account-numbers input)
           expected-result
           "111111111 ERR
 222222222 ERR
@@ -36,6 +36,6 @@
       (is (= expected-result result))))
   (testing "parse file wit checksum and digit validation failing"
     (let [input (slurp "test/pitch/resources/corrupted_line_input.txt")
-          result (parse input)
+          result (parse-account-numbers input)
           expected-result "00000?00? ILL\n111111111 ERR"]
       (is (= expected-result result)))))

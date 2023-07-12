@@ -26,7 +26,7 @@
    validation/parse-validation
    s/join))
 
-(defn parse [text]
+(defn parse-account-numbers [text]
   (->>
    text
    (s/split-lines)
