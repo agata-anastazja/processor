@@ -127,20 +127,14 @@ brew install clojure/tools/clojure
 ## Usage
 
 
-Run the project  by providing a path for a file to be read and a path for a file to be :
+Run the project  by providing a path for a file to be read and a path for a file to be written to :
 
-    $ clojure -X:run-x :name '"Someone"'
-    Hello, Someone!
-
-Run the project directly, via `:main-opts` (`-m pitch.processor`):
-
-    $ clojure -M:run-m
-    Hello, World!
+    $ clojure -M:run-m "test/pitch/resources/valid_input.txt" "./result.txt"
+    
 
 Run the project's tests (they'll fail until you edit them):
 
     $ clojure -T:build test
 
-## Design decisions
 
 
