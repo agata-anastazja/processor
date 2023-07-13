@@ -3,7 +3,7 @@
             [pitch.digits :as digits]
             [pitch.validation :as validation]))
 
-(defn group-line-by-segments [lines]
+(defn chars->digit [lines]
   (->>
    lines
    (cons #(digits/chars-digits [%1 %2 %3] \?))
@@ -17,13 +17,22 @@
   (->>
    seven-segment-digit
    partition-by-3
-   group-line-by-segments))
+   chars->digit))
+
+(defn render-account[account]
+  (let [{digits-line :digits-line
+         err   :err} account
+        parsed-digit-line (s/join digits-line)]
+    (if (nil? err)
+      parsed-digit-line
+      (str parsed-digit-line " " err))))
 
 (defn parse-account [seven-segment-line]
   (->>
    seven-segment-line
    seven-segment-line->account
-   validation/parse-validation
+   validation/validate-account
+   render-account
    s/join))
 
 (defn parse-account-numbers [text]

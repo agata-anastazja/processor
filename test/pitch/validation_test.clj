@@ -19,16 +19,16 @@
 (deftest parse-validation-test
   (testing "add ERR to invalid checksum line"
     (let [line [0 0 0 0 0 0 0 0 1]
-          result (parse-validation line)
-          expected-result [0 0 0 0 0 0 0 0 1 " ERR"]]
+          result (validate-account line)
+          expected-result {:digits-line line :err "ERR"}]
       (is (=  expected-result result))))
   (testing "don't change a valid checksum"
     (let [line [0 0 0 0 0 0 0 0 0]
-          result (parse-validation line)
-          expected-result [0 0 0 0 0 0 0 0 0]]
+          result (validate-account line)
+          expected-result {:digits-line line}]
       (is (=  expected-result result))))
   (testing "add ILL to a line with badly parsed numbers"
     (let [line [0 "?" 0 0 0 0 0 0 0]
-          result (parse-validation line)
-          expected-result [0 "?" 0 0 0 0 0 0 0 " ILL"]]
+          result (validate-account line)
+          expected-result {:digits-line line :err "ILL"}]
       (is (= expected-result result)))))
