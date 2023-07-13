@@ -12,7 +12,7 @@
 
 (deftest not-only-digits-test
   (testing "returns true if there is a question mark in the vector"
-    (is (not-only-digits? [1 2 "?"])))
+    (is (not-only-digits? [1 2 \?])))
   (testing "returns false if there is a vector only with digits"
     (is (= false (not-only-digits? [1 2])))))
 
@@ -22,13 +22,13 @@
           result (validate-account line)
           expected-result {:digits-line line :err "ERR"}]
       (is (=  expected-result result))))
-  (testing "don't change a valid checksum"
+  (testing "doesn't add an err type to a valid line"
     (let [line [0 0 0 0 0 0 0 0 0]
           result (validate-account line)
           expected-result {:digits-line line}]
       (is (=  expected-result result))))
   (testing "add ILL to a line with badly parsed numbers"
-    (let [line [0 "?" 0 0 0 0 0 0 0]
+    (let [line [0 \? 0 0 0 0 0 0 0]
           result (validate-account line)
           expected-result {:digits-line line :err "ILL"}]
       (is (= expected-result result)))))
